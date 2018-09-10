@@ -7,7 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
 import java.util.Set;
-public class HttpUtils {
+public class HttpUtil {
 
 	public static String post(String urlPath,Map param,Set<Map> attrib)throws Exception{
 		URL url = new URL(urlPath);

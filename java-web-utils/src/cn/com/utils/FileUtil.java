@@ -1,7 +1,7 @@
 package cn.com.utils;
 import java.io.File;
 import java.io.FileWriter;
-public class FileUtils {
+public class FileUtil {
 	
 	public static void writer(String filepath,byte[] bytes,boolean append) throws Exception{
 		
