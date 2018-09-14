@@ -1,0 +1,85 @@
+<html>
+<title>聊天器/后门连接器</title>
+<body style="background:black;">
+<div style="height:40px;line-height:40px;color:red;">
+	URL：<input id="url" type="text" style="cursor:pointer;"/> 参数：<input id="param" type="text" style="cursor:pointer;"/>	
+	<input type="button" name="连接" value="连接" onclick="submit()"/>
+</div>
+<div id="editDiv" contenteditable="true" style="width:100%;height:90%;color:white;background:black;border:none;" ondrop="drop(event)"></div>
+<script>
+	var editDiv = document.getElementById("editDiv");
+	function submit(){
+		var url = document.getElementById("url");
+		var param = document.getElementById("param");
+		var password = "kkmai@123456";
+	}
+	function drop(ev){
+		ev.preventDefault();
+		//var data=ev.dataTransfer.getData("Text");
+		var data = ev.dataTransfer.items;
+		for (var i = data.length-1; i >=0 ; i --) {
+		    if ((data[i].kind == 'string') && (data[i].type.match('^text/html'))) {
+				data[i].getAsString(function (s){
+				   ev.target.innerHTML = ev.target.innerHTML + "<a target='_blank' cursor='pointer'>" + s + "<a/>";
+				});
+				break;
+		    } else if ((data[i].kind == 'string') && 
+					  (data[i].type.match('^text/uri-list'))) {
+				data[i].getAsString(function (s){
+				   //ev.target.innerHTML = ev.target.innerHTML + "<a target='_blank' style='cursor:pointer;color:blue;' href='" + s + "'>" + s + "<a/>";
+					ev.target.appendChild(generatorANode(s));
+				});
+				break;
+		    } else if ((data[i].kind == 'file') && (data[i].type.match('^image/'))) {
+				var f = data[i].getAsFile();
+				ev.target.appendChild(generatorIMGNode(f));;
+				break;
+		    } else if ((data[i].kind == 'string') && (data[i].type.match('^text/plain'))) {
+				data[i].getAsString(function (s){
+					ev.target.innerHTML = ev.target.innerHTML + s ;
+				});
+				break;
+		    }
+		}
+	}
+	function isNull(data){
+		if(!data){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	function getAsString(e){
+		return "<a target='_blank' cursor='pointer'>" + e + "<a/>";
+	}
+	/*正则匹配，如果是网页则自动加上A标签*/
+	function generatorNode(data){
+		
+		
+	}
+	function generatorANode(data){
+		var node = document.createElement("A");
+		node.href = data;
+		node.innerText = data;
+		node.style = "cursor:pointer;color:blue;";
+		node.addEventListener('click',function(e){
+			window.open(e.target.href);
+		})
+		return node;
+	}
+	function generatorIMGNode(data){
+		var reader = new FileReader();
+		var node = document.createElement("IMG");
+		reader.onload = function(evt){
+			node.src = evt.target.result;
+		}
+		node.onload=function(e){
+			debugger;
+			e.target.width = 200;
+		}
+		reader.readAsDataURL(data);
+		return node;
+	}
+</script>
+</body>
+</html>
