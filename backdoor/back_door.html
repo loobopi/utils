@@ -46,23 +46,15 @@ DIV{
 		// 设置最后光标对象
 		lastEditRange = selection.getRangeAt(0)
 	}
-	/*editDiv.onkeypress = function(e){
-		if(e.key == 'Enter'){
-			//e.target.appendChild(generatorPNode(e));
-			debugger;
-			return false;
-			//发送消息
-			sendMessage();
-		}
-	}*/
 	editDiv.onkeyup = function(e){
 		if(e.key == 'Enter'){
 			var br = document.getElementsByTagName("BR");
 			for(var i=0;i<br.length;i++){
 				br[i].parentNode.removeChild(br[i]);
 			}
-			//发送消息
-			sendMessage();
+			if(e.ctrlKey){
+	        	sendMessage();
+			}
 		}else if(e.code = 'Backspace'){
 			var div = editDiv.childNodes;
 			if(editDiv.childNodes.length == 0){
