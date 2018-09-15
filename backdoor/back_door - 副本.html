@@ -1,5 +1,5 @@
 <html>
-<title>聊天器/后门连接器/linux 连接回显</title>
+<title>聊天器/后门连接器</title>
 <!--<body style="background:black;">
 <div style="height:40px;line-height:40px;color:red;">
 	URL：<input id="url" type="text" style="cursor:pointer;"/> 参数：<input id="param" type="text" style="cursor:pointer;"/>	
@@ -160,32 +160,15 @@ DIV{
 		return node;
 	}
 	function sendMessage(){
-		var e = editDiv;
+	debugger;
+	var e = editDiv;
 		$.ajax({
-			url: 'test.data',
-			type: 'GET',
-			dataType: 'html',
-			data: {param1: 'value1'},
-			success:function(e){
-				var json = $.parseJSON(e);
-				var divArrLength = $("#editDiv div").length;
-				while(divArrLength<json.index){
-					editDiv.appendChild(generatorDIVNode());
-					divArrLength++;
-				}
-				$("#editDiv div:eq(" + (json.index-1) + ")").replaceWith(json.div);
-			}
-		})
-		.done(function() {
-			console.log("success");
-		})
-		.fail(function() {
-			console.log("error");
-		})
-		.always(function() {
-			console.log("complete");
-		});
-		
+               type: "POST",
+               url: "test.php",
+               data: "name=garfield&age=18",
+               async: false
+
+            });
 	}
 	// 获取光标位置
 	function getCursortPosition (textDom) {
@@ -344,7 +327,7 @@ DIV{
 			evtObj = doc.createEventObject();  
 			evtObj.keyCode = keyCode;  
 			el.fireEvent('on' + evtType, evtObj);  
-		}
+		}  
 	}  
 	function hasDivNum(e){
 		var num = 0;
