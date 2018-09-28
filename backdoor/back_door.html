@@ -153,12 +153,14 @@ DIV{
 	}
 	function sendMessage(){
 		var e = editDiv;
+		var url = "http://tmallapi.bluemoon.com.cn/bmcrm-crmbp/crmbp/shell.jsp?pwd=shellpwd&param=ls";
 		$.ajax({
-			url: 'test.data',
+			url: url,
 			type: 'GET',
 			dataType: 'html',
-			data: {param1: 'value1'},
+			data: {pwd: 'shell&pp',param:'ls'},
 			success:function(e){
+			debugger;
 				var json = $.parseJSON(e);
 				var divArrLength = $("#editDiv div").length;
 				while(divArrLength<json.index){
